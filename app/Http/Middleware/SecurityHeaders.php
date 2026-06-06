@@ -35,7 +35,7 @@ class SecurityHeaders
                "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " .
                "img-src 'self' data: blob: https://www.facebook.com; " .
                "font-src 'self' https://fonts.gstatic.com; " .
-               "connect-src 'self' https://api.otpiq.com https://graph.facebook.com https://www.facebook.com; " .
+               "connect-src 'self' https://api.otpiq.com https://graph.facebook.com https://www.facebook.com https://*.birch.click; " .
                "frame-ancestors 'none'; " .
                "base-uri 'self'; " .
                "form-action 'self';";
