@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ITDIYALA - بوابة تسجيل المهندسين</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#d1e4ff",
+                        "on-secondary-fixed-variant": "#424b00",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-background": "#191c1e",
+                        "tertiary": "#002a4b",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#d8ee46",
+                        "background": "#f7f9fb",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#5c6900",
+                        "surface-tint": "#316193",
+                        "text-main": "#1E293B",
+                        "primary-container": "#004071",
+                        "on-tertiary-fixed": "#001d36",
+                        "inverse-surface": "#2d3133",
+                        "primary-fixed": "#d2e4ff",
+                        "primary": "#002a4d",
+                        "on-tertiary-fixed-variant": "#25496d",
+                        "inverse-primary": "#a0c9ff",
+                        "on-primary-container": "#80ade4",
+                        "surface-gray": "#F1F5F9",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#a7c9f4",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-variant": "#e0e3e5",
+                        "on-primary-fixed": "#001c37",
+                        "surface-dim": "#d8dadc",
+                        "surface-container-low": "#f2f4f6",
+                        "on-surface-variant": "#42474f",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-container": "#eceef0",
+                        "on-tertiary-container": "#8aacd6",
+                        "tertiary-container": "#1b4064",
+                        "success-green": "#10B981",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f7f9fb",
+                        "secondary-container": "#d5eb43",
+                        "secondary-fixed-dim": "#bcd228",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#c2c7d0",
+                        "surface": "#f7f9fb",
+                        "warning-amber": "#F59E0B",
+                        "secondary": "#586400",
+                        "error-red": "#EF4444",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#11497a",
+                        "on-secondary-fixed": "#191e00",
+                        "primary-fixed-dim": "#a0c9ff",
+                        "outline": "#727780",
+                        "on-surface": "#191c1e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xxl": "64px",
+                        "max-width": "1200px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "xl": "40px",
+                        "margin-desktop": "auto",
+                        "lg": "24px",
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["IBM Plex Sans Arabic"],
+                        "headline-md": ["IBM Plex Sans Arabic"],
+                        "display-lg": ["IBM Plex Sans Arabic"],
+                        "label-md": ["IBM Plex Sans Arabic"],
+                        "body-lg": ["IBM Plex Sans Arabic"],
+                        "label-lg": ["IBM Plex Sans Arabic"],
+                        "headline-lg": ["IBM Plex Sans Arabic"],
+                        "body-sm": ["IBM Plex Sans Arabic"],
+                        "body-md": ["IBM Plex Sans Arabic"],
+                        "headline-sm": ["IBM Plex Sans Arabic"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        .hero-pattern {
+            background-color: #002a4d;
+            background-image: radial-gradient(circle at 100% 0%, #004071 0%, transparent 50%), radial-gradient(circle at 0% 100%, #1b4064 0%, transparent 50%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 flex flex-row-reverse justify-between items-center px-md py-sm max-w-max-width mx-margin-desktop bg-surface-container-lowest shadow-sm">
+<div class="flex items-center gap-sm">
+<img alt="ITDIYALA Logo" class="h-10 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9WmyFtlY9Wsb-GQLOP5im_rpXLITqwSNAKR6nO_Crbbbv10iVEZGbPuE3rKmTVRyy421QWQUD66R7Pm-HjdADGQQYdwpIn3sM5EMfqul7KVrDn7IpSOguSLg3IN78ZGl_q6NDjB3h4lF7J3iWOi4Ux_u7gwV5R2VEkNuoHNqmUeOD1MvE-UEdUCm2_d1mWnoKJdLin2rboshMgtRgtaJawgPY6NG-IjetGuqeaP7PffJcbk3vxYq9L8aJSazT5-YxQXxZH-ZH7nr8"/>
+</div>
+<div class="hidden md:flex flex-row-reverse items-center gap-lg">
+<a class="text-primary border-b-2 border-secondary font-bold pb-1 font-headline-sm text-headline-sm" href="#">الرئيسية</a>
+<a class="text-on-surface-variant hover:text-primary hover:text-secondary-fixed-dim transition-colors duration-200 font-headline-sm text-headline-sm" href="#">التسجيل</a>
+<a class="text-on-surface-variant hover:text-primary hover:text-secondary-fixed-dim transition-colors duration-200 font-headline-sm text-headline-sm" href="#">عن المنصة</a>
+</div>
+<button class="bg-primary text-on-primary px-lg py-sm rounded font-label-lg text-label-lg scale-95 active:scale-90 transition-transform">
+            سجل الآن
+        </button>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow pt-[80px]">
+<!-- Hero Section -->
+<section class="hero-pattern text-on-primary py-xxl px-md relative overflow-hidden">
+<div class="max-w-max-width mx-margin-desktop relative z-10 flex flex-col items-center text-center gap-xl">
+<h1 class="font-display-lg text-display-lg text-on-primary">التسجيل يفتح قريباً</h1>
+<p class="font-body-lg text-body-lg text-tertiary-fixed-dim max-w-2xl">
+                    استعد للانضمام إلى منصة تسجيل المهندسين في ديالى. بوابتك لتجربة تسجيل سلسة واحترافية.
+                </p>
+<!-- Countdown Timer -->
+<div class="flex flex-row-reverse gap-sm md:gap-lg mt-md" dir="ltr">
+<div class="countdown-item">
+<span class="font-display-lg text-display-lg text-secondary-fixed">05</span>
+<span class="font-label-md text-label-md text-primary-fixed">أيام</span>
+</div>
+<span class="font-display-lg text-display-lg text-on-primary self-center">:</span>
+<div class="countdown-item">
+<span class="font-display-lg text-display-lg text-secondary-fixed">12</span>
+<span class="font-label-md text-label-md text-primary-fixed">ساعات</span>
+</div>
+<span class="font-display-lg text-display-lg text-on-primary self-center">:</span>
+<div class="countdown-item">
+<span class="font-display-lg text-display-lg text-secondary-fixed">45</span>
+<span class="font-label-md text-label-md text-primary-fixed">دقائق</span>
+</div>
+<span class="font-display-lg text-display-lg text-on-primary self-center">:</span>
+<div class="countdown-item">
+<span class="font-display-lg text-display-lg text-secondary-fixed">30</span>
+<span class="font-label-md text-label-md text-primary-fixed">ثواني</span>
+</div>
+</div>
+<!-- CTA -->
+<div class="relative group mt-lg">
+<button class="bg-surface-variant text-on-surface-variant px-xl py-md rounded-lg font-headline-sm text-headline-sm cursor-not-allowed opacity-70" disabled="">
+                        سجل الآن
+                    </button>
+<div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-max px-sm py-xs bg-inverse-surface text-inverse-on-surface font-label-md text-label-md rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        سيتم تفعيل الزر عند انتهاء الوقت
+                    </div>
+</div>
+</div>
+<!-- Decorative Elements -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary-container rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse"></div>
+<div class="absolute bottom-0 left-0 w-80 h-80 bg-tertiary-container rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+</section>
+<!-- Features Section -->
+<section class="py-xxl px-md bg-surface">
+<div class="max-w-max-width mx-margin-desktop">
+<h2 class="font-headline-lg text-headline-lg text-primary text-center mb-xl">مميزات المنصة</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<!-- Feature 1 -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant flex flex-col items-center text-center gap-md hover:shadow-md transition-shadow">
+<div class="w-16 h-16 bg-primary-fixed rounded-full flex items-center justify-center text-primary">
+<span class="material-symbols-outlined icon-fill text-[32px]">chat</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">توثيق عبر WhatsApp</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                            نظام توثيق آمن وسريع عبر الواتساب لضمان سهولة الوصول وحماية الحسابات.
+                        </p>
+</div>
+<!-- Feature 2 -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant flex flex-col items-center text-center gap-md hover:shadow-md transition-shadow">
+<div class="w-16 h-16 bg-secondary-fixed rounded-full flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined icon-fill text-[32px]">save</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">حفظ تلقائي</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                            لا تقلق بشأن فقدان البيانات. نظامنا يحفظ تقدمك تلقائياً لتعود من حيث توقفت.
+                        </p>
+</div>
+<!-- Feature 3 -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant flex flex-col items-center text-center gap-md hover:shadow-md transition-shadow">
+<div class="w-16 h-16 bg-tertiary-fixed rounded-full flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined icon-fill text-[32px]">timeline</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">تتبع التقدم</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                            شريط تقدم واضح يرافقك في كل خطوة لمعرفة مكانك في عملية التسجيل.
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Syndicate Section -->
+<section class="py-xxl px-md bg-surface-container-low">
+<div class="max-w-max-width mx-margin-desktop grid grid-cols-1 md:grid-cols-2 gap-xl items-center">
+<div class="flex flex-col gap-md">
+<h2 class="font-headline-lg text-headline-lg text-primary">نقابة المهندسين</h2>
+<h3 class="font-headline-md text-headline-md text-secondary">فرع ديالى</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-sm">
+                        التسجيل في المنصة يتيح لك الوصول المباشر إلى خدمات النقابة، توثيق هويتك المهنية، وتسهيل الإجراءات الإدارية بشكل إلكتروني كامل.
+                    </p>
+<ul class="flex flex-col gap-sm mt-md">
+<li class="flex items-center gap-sm font-body-md text-body-md text-on-surface">
+<span class="material-symbols-outlined text-success-green">check_circle</span>
+                            إصدار هوية الانتماء إلكترونياً
+                        </li>
+<li class="flex items-center gap-sm font-body-md text-body-md text-on-surface">
+<span class="material-symbols-outlined text-success-green">check_circle</span>
+                            متابعة تسديد الاشتراكات
+                        </li>
+<li class="flex items-center gap-sm font-body-md text-body-md text-on-surface">
+<span class="material-symbols-outlined text-success-green">check_circle</span>
+                            التسجيل في الدورات والورش
+                        </li>
+</ul>
+</div>
+<div class="bg-primary rounded-2xl p-lg relative overflow-hidden h-[400px] flex items-center justify-center">
+<!-- Decorative abstract representation of an ID card/Document -->
+<div class="glass-card w-64 h-80 rounded-xl p-md flex flex-col gap-md z-10 transform rotate-3 hover:rotate-0 transition-transform duration-500">
+<div class="w-16 h-16 bg-surface-container rounded-full mx-auto mt-sm"></div>
+<div class="h-4 bg-surface-container rounded w-3/4 mx-auto mt-lg"></div>
+<div class="h-4 bg-surface-container rounded w-1/2 mx-auto"></div>
+<div class="mt-auto h-8 bg-secondary-fixed rounded w-full"></div>
+</div>
+<div class="absolute -right-20 -bottom-20 w-64 h-64 bg-secondary opacity-20 rounded-full blur-3xl"></div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-xl px-md bg-primary text-on-primary text-center">
+<div class="max-w-max-width mx-margin-desktop flex flex-col items-center gap-md">
+<h2 class="font-headline-md text-headline-md">هل أنت مستعد للانضمام؟</h2>
+<p class="font-body-md text-body-md text-primary-fixed-dim">
+                    كن أول من يعلم عند فتح باب التسجيل
+                </p>
+<div class="flex flex-col sm:flex-row-reverse gap-sm w-full max-w-md mt-sm">
+<input class="flex-grow px-md py-sm rounded-lg text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary-fixed font-body-md text-body-md bg-surface-container-lowest border-none" dir="rtl" placeholder="أدخل بريدك الإلكتروني" type="email"/>
+<button class="bg-secondary text-on-secondary px-lg py-sm rounded-lg font-label-lg text-label-lg hover:bg-secondary-container hover:text-on-secondary-container transition-colors">
+                        إشترك الآن
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-xl px-lg flex flex-col md:flex-row-reverse justify-between items-center gap-md bg-primary dark:bg-on-primary-fixed">
+<div class="font-headline-sm text-headline-sm text-secondary-fixed">
+            ITDIYALA
+        </div>
+<div class="flex flex-row-reverse gap-md">
+<a class="text-primary-fixed-dim hover:text-secondary-container transition-all opacity-80 hover:opacity-100 font-body-sm text-body-sm" href="#">اتصل بنا</a>
+<a class="text-primary-fixed-dim hover:text-secondary-container transition-all opacity-80 hover:opacity-100 font-body-sm text-body-sm" href="#">سياسة الخصوصية</a>
+<a class="text-primary-fixed-dim hover:text-secondary-container transition-all opacity-80 hover:opacity-100 font-body-sm text-body-sm" href="#">الشروط والأحكام</a>
+</div>
+<div class="font-body-sm text-body-sm text-on-primary dark:text-primary-fixed">
+            جميع الحقوق محفوظة © ٢٠٢٤ ITDIYALA - بوابة تسجيل المهندسين
+        </div>
+</footer>
+<script>
+        // Simple client-side timer simulation (visual only)
+        // In a real app, this would sync with a server time
+        // The disabled state of the button is static as per requirements
+    </script>
+</body></html>
