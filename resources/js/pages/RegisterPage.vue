@@ -50,7 +50,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import ProgressBar from './components/ProgressBar.vue';
 import Step1 from './components/Step1.vue';
@@ -60,6 +60,13 @@ const router = useRouter();
 const step = ref(1);
 const isSubmitting = ref(false);
 const globalError = ref('');
+
+onMounted(() => {
+  // Facebook Pixel: user started registration
+  if (typeof window !== 'undefined' && window.fbq) {
+    window.fbq('track', 'Lead');
+  }
+});
 
 const formData = reactive({
   fullName: "",

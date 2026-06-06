@@ -31,11 +31,11 @@ class SecurityHeaders
 
         // Content Security Policy (strict)
         $csp = "default-src 'self'; " .
-               "script-src 'self'; " .
+               "script-src 'self' https://connect.facebook.net; " .
                "style-src 'self' 'unsafe-inline'; " .
-               "img-src 'self' data: blob:; " .
+               "img-src 'self' data: blob: https://www.facebook.com; " .
                "font-src 'self'; " .
-               "connect-src 'self' https://api.otpiq.com; " .
+               "connect-src 'self' https://api.otpiq.com https://graph.facebook.com; " .
                "frame-ancestors 'none'; " .
                "base-uri 'self'; " .
                "form-action 'self';";

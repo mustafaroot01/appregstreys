@@ -56,4 +56,11 @@ const router = createRouter({
   routes
 });
 
+// Facebook Pixel PageView tracking on route changes
+router.afterEach((to) => {
+  if (typeof window !== 'undefined' && window.fbq) {
+    window.fbq('track', 'PageView');
+  }
+});
+
 export default router;

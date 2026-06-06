@@ -90,6 +90,11 @@ onMounted(() => {
   dateStr.value = new Date().toLocaleDateString("ar-IQ", { 
     year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" 
   });
+
+  // Facebook Pixel: registration completed successfully
+  if (typeof window !== 'undefined' && window.fbq) {
+    window.fbq('track', 'CompleteRegistration');
+  }
 });
 
 const handlePrint = () => {
