@@ -7,6 +7,7 @@ use App\Models\Setting;
 use App\Models\ActivityLog;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class SettingsController extends Controller
 {
@@ -60,6 +61,7 @@ class SettingsController extends Controller
             $newValue = is_bool($item['value']) ? ($item['value'] ? '1' : '0') : (string) $item['value'];
 
             $setting->update(['value' => $newValue]);
+            Cache::forget("setting_{$item['key']}");
 
             $updated[] = $item['key'];
         }
