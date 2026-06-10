@@ -7,6 +7,7 @@ use App\Models\Registration;
 use App\Models\ActivityLog;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminRegistrationController extends Controller
 {
@@ -25,8 +26,8 @@ class AdminRegistrationController extends Controller
             ->search($request->query('search'))
             ->latest();
 
-        // Pagination
-        $perPage = min((int) $request->query('per_page', 25), 100);
+        // Pagination (clamp between 1 and 100)
+        $perPage = max(1, min((int) $request->query('per_page', 25), 100));
         $registrations = $query->paginate($perPage);
 
         return response()->json([
@@ -108,7 +109,7 @@ class AdminRegistrationController extends Controller
 
         // Delete engineer ID image if exists
         if ($registration->engineer_id_image) {
-            \Illuminate\Support\Facades\Storage::disk('public')->delete($registration->engineer_id_image);
+            Storage::disk('public')->delete($registration->engineer_id_image);
         }
 
         $registration->delete();
@@ -125,16 +126,16 @@ class AdminRegistrationController extends Controller
      */
     public function export(Request $request)
     {
-        $registrations = Registration::query()
+        $query = Registration::query()
             ->filterByStatus($request->query('status'))
             ->filterByEngineer($request->query('engineer'))
             ->filterByEmployee($request->query('employee'))
             ->filterByStudyLevel($request->query('study_level'))
             ->filterByTrainingType($request->query('training_type'))
             ->search($request->query('search'))
-            ->latest()
-            ->get();
+            ->latest();
 
+        $exportCount = $query->count();
         $csvFileName = 'registrations_' . now()->format('Y-m-d_His') . '.csv';
 
         $headers = [
@@ -142,7 +143,7 @@ class AdminRegistrationController extends Controller
             'Content-Disposition' => "attachment; filename=\"{$csvFileName}\"",
         ];
 
-        $callback = function () use ($registrations) {
+        $callback = function () use ($query) {
             $file = fopen('php://output', 'w');
 
             // BOM for UTF-8
@@ -162,7 +163,8 @@ class AdminRegistrationController extends Controller
                 'rejected'  => 'مرفوض',
             ];
 
-            foreach ($registrations as $reg) {
+            // Stream rows lazily to avoid loading all records into memory.
+            foreach ($query->cursor() as $reg) {
                 fputcsv($file, [
                     $reg->order_id,
                     $reg->full_name,
@@ -185,7 +187,7 @@ class AdminRegistrationController extends Controller
             fclose($file);
         };
 
-        ActivityLog::record('export', "تصدير بيانات ({$registrations->count()} سجل)");
+        ActivityLog::record('export', "تصدير بيانات ({$exportCount} سجل)");
 
         return response()->stream($callback, 200, $headers);
     }

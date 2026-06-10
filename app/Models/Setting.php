@@ -20,7 +20,9 @@ class Setting extends Model
      */
     public static function getValue(string $key, mixed $default = null): mixed
     {
-        $setting = self::where('key', $key)->first();
+        $setting = Cache::rememberForever("setting_{$key}", function () use ($key) {
+            return self::where('key', $key)->first();
+        });
 
         if (!$setting) return $default;
 
@@ -45,6 +47,23 @@ class Setting extends Model
             $setting->update(['value' => (string) $value]);
             Cache::forget("setting_{$key}");
         }
+    }
+
+    /**
+     * Clear cached value for a setting key
+     */
+    public static function clearCache(string $key): void
+    {
+        Cache::forget("setting_{$key}");
+    }
+
+    /**
+     * Flush caches when a setting is saved/deleted
+     */
+    protected static function booted(): void
+    {
+        static::saved(fn (Setting $s) => Cache::forget("setting_{$s->key}"));
+        static::deleted(fn (Setting $s) => Cache::forget("setting_{$s->key}"));
     }
 
     /**

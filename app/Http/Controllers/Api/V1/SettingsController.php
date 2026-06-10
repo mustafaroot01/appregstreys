@@ -61,9 +61,6 @@ class SettingsController extends Controller
 
             $setting->update(['value' => $newValue]);
 
-            // Clear cache
-            \Illuminate\Support\Facades\Cache::forget("setting_{$item['key']}");
-
             $updated[] = $item['key'];
         }
 

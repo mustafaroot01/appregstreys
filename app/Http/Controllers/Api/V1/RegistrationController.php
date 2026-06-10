@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\StoreRegistrationRequest;
 use App\Models\Registration;
 use App\Models\Setting;
+use App\Models\OtpVerification;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class RegistrationController extends Controller
@@ -40,9 +42,11 @@ class RegistrationController extends Controller
         }
 
         // Security Check: Ensure the phone number was actually verified via OTP recently
-        if (Setting::getValue('feature_otp_verification', true)) {
-            $phoneToCheck = $request->whatsapp_phone ?? $request->phone;
-            $isVerified = \App\Models\OtpVerification::where('phone', $phoneToCheck)
+        $otpEnabled   = Setting::getValue('feature_otp_verification', true);
+        $phoneToCheck = $request->whatsapp_phone ?? $request->phone;
+
+        if ($otpEnabled) {
+            $isVerified = OtpVerification::where('phone', $phoneToCheck)
                 ->where('verified', true)
                 ->where('updated_at', '>=', now()->subHours(2))
                 ->exists();
@@ -62,25 +66,45 @@ class RegistrationController extends Controller
                 ->store('engineer-ids', 'public');
         }
 
-        // Create registration
-        $registration = Registration::create([
-            'order_id'          => Registration::generateOrderId(),
-            'full_name'         => $request->full_name,
-            'phone'             => $request->phone,
-            'whatsapp_phone'    => $request->whatsapp_phone ?? $request->phone,
-            'email'             => $request->email,
-            'address'           => $request->address,
-            'gender'            => $request->gender,
-            'study_level'       => $request->study_level,
-            'training_type'     => $request->training_type,
-            'about_me'          => $request->about_me,
-            'is_employee'       => $request->is_employee,
-            'is_engineer'       => $request->is_engineer === 'نعم',
-            'engineer_id_image' => $imagePath,
-            'status'            => 'new',
-            'ip_address'        => $request->ip(),
-            'phone_verified'    => Setting::getValue('feature_otp_verification', true) ? true : false,
-        ]);
+        // Create registration inside a transaction; consume the verified OTP so it
+        // cannot be reused for another registration within the validity window.
+        try {
+            $registration = DB::transaction(function () use ($request, $imagePath, $otpEnabled, $phoneToCheck) {
+                $registration = Registration::create([
+                    'order_id'          => Registration::generateOrderId(),
+                    'full_name'         => $request->full_name,
+                    'phone'             => $request->phone,
+                    'whatsapp_phone'    => $request->whatsapp_phone ?? $request->phone,
+                    'email'             => $request->email,
+                    'address'           => $request->address,
+                    'gender'            => $request->gender,
+                    'study_level'       => $request->study_level,
+                    'training_type'     => $request->training_type,
+                    'about_me'          => $request->about_me,
+                    'is_employee'       => $request->is_employee,
+                    'is_engineer'       => $request->is_engineer === 'نعم',
+                    'engineer_id_image' => $imagePath,
+                    'status'            => 'new',
+                    'ip_address'        => $request->ip(),
+                    'phone_verified'    => $otpEnabled,
+                ]);
+
+                if ($otpEnabled) {
+                    // Invalidate verified OTPs so the same code can't be reused.
+                    OtpVerification::where('phone', $phoneToCheck)
+                        ->where('verified', true)
+                        ->delete();
+                }
+
+                return $registration;
+            });
+        } catch (\Throwable $e) {
+            // Roll back the uploaded image if the DB transaction failed.
+            if ($imagePath) {
+                Storage::disk('public')->delete($imagePath);
+            }
+            throw $e;
+        }
 
         return response()->json([
             'success' => true,
