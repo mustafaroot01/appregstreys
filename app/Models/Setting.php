@@ -16,26 +16,30 @@ class Setting extends Model
     ];
 
     /**
-     * Get a setting value by key, with caching
+     * Get a setting value by key, with safe JSON caching
      */
     public static function getValue(string $key, mixed $default = null): mixed
     {
-        try {
-            $setting = Cache::rememberForever("setting_{$key}", function () use ($key) {
-                return self::where('key', $key)->first();
-            });
-        } catch (\Exception $e) {
-            $setting = self::where('key', $key)->first();
+        $cached = Cache::get("setting_{$key}");
+
+        if ($cached !== null) {
+            $data = json_decode($cached, true);
+            return $data['value'] ?? $default;
         }
 
+        $setting = self::where('key', $key)->first();
         if (!$setting) return $default;
 
-        return match ($setting->type) {
+        $value = match ($setting->type) {
             'boolean' => (bool) $setting->value,
             'integer' => (int) $setting->value,
             'json'    => json_decode($setting->value, true),
             default   => $setting->value,
         };
+
+        Cache::forever("setting_{$key}", json_encode(['value' => $value, 'type' => $setting->type]));
+
+        return $value;
     }
 
     /**
